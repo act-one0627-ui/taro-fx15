@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Taro FX" />
+<meta name="theme-color" content="#0b1220" />
+<title>Taro FX Pro Ver.15</title>
+<style>
+:root{--bg:#09101b;--panel:#121a2b;--line:#2a3757;--text:#eef4ff;--muted:#9fb0cf;--red:#ff6b6b;--blue:#4da3ff;--green:#3ecf8e;--yellow:#ffd166}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#09101b,#0f1727);color:var(--text)}
+.wrap{max-width:1500px;margin:0 auto;padding:14px}.hero,.panel{background:rgba(18,26,43,.96);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.22)}
+.hero{padding:16px;margin-bottom:16px;background:linear-gradient(135deg, rgba(79,140,255,.17), rgba(62,207,142,.08))}
+.hero-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:14px}.icon{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;font-size:28px;background:linear-gradient(180deg,#5e97ff,#2f6fe8)}
+.title{margin:0;font-size:28px;font-weight:900}.sub{margin-top:4px;color:var(--muted);font-size:13px}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#10192a;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
+.big-signal{margin-top:14px;border-radius:18px;padding:16px;border:1px solid var(--line);background:#0d1524}.big-signal-title{font-size:12px;color:var(--muted);margin-bottom:8px}.big-signal-main{font-size:42px;font-weight:900;line-height:1}.big-signal-sub{margin-top:8px;color:var(--muted)}
+.big-sell{background:linear-gradient(180deg, rgba(255,107,107,.22), rgba(13,21,36,1));border-color:rgba(255,107,107,.45)}.big-buy{background:linear-gradient(180deg, rgba(77,163,255,.22), rgba(13,21,36,1));border-color:rgba(77,163,255,.45)}.big-wait{background:linear-gradient(180deg, rgba(255,209,102,.16), rgba(13,21,36,1));border-color:rgba(255,209,102,.4)}
+.session-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.session-card{background:#0d1524;border:1px solid var(--line);border-radius:14px;padding:12px}.session-name{font-size:12px;color:var(--muted)}.session-time{font-size:18px;font-weight:900;margin-top:6px}.s-open{color:var(--green)} .s-wait{color:var(--yellow)}
+.grid{display:grid;grid-template-columns:1.45fr .95fr;gap:16px;align-items:start}.panel{padding:16px}.chart-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button,.small-btn,.primary{width:auto;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#162036;color:var(--text);cursor:pointer;font-weight:700}.tabs .active,.primary{background:linear-gradient(180deg,#5e97ff,#3f7ff7);border:none}
+.chart-wrap{height:860px}.tv-iframe{width:100%;height:100%;border:0;border-radius:14px;background:#0b1220}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}input,select,textarea,button{width:100%;border-radius:12px;border:1px solid var(--line);background:#0e1626;color:var(--text);padding:11px 12px;font-size:14px}textarea{min-height:80px;resize:vertical}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.small-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}.small-cards.two{grid-template-columns:1fr 1fr}
+.card{background:#0d1524;border:1px solid var(--line);border-radius:14px;padding:12px}.k{font-size:12px;color:var(--muted);margin-bottom:6px}.v{font-size:20px;font-weight:900}
+.red{color:var(--red)} .blue{color:var(--blue)} .green{color:var(--green)} .yellow{color:var(--yellow)}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.check-item{display:flex;align-items:center;gap:8px;background:#0d1524;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:13px}.check-item input{width:auto;transform:scale(1.1)}
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.zone{border-radius:16px;padding:12px;border:1px solid var(--line);background:#0d1524}.zone.sell{background:linear-gradient(180deg, rgba(255,107,107,.12), rgba(13,21,36,1));border-color:rgba(255,107,107,.45)}.zone.buy{background:linear-gradient(180deg, rgba(77,163,255,.12), rgba(13,21,36,1));border-color:rgba(77,163,255,.45)}
+.zonebar{height:18px;border-radius:999px;background:#0a1120;border:1px solid var(--line);margin:10px 0;position:relative;overflow:hidden}.zonebar>div{position:absolute;inset:0}.sellfill{background:linear-gradient(90deg, rgba(255,107,107,.35), rgba(255,107,107,.85), rgba(255,107,107,.35))}.buyfill{background:linear-gradient(90deg, rgba(77,163,255,.35), rgba(77,163,255,.85), rgba(77,163,255,.35))}
+.zoneprices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.zoneprices div{background:#111a2b;border:1px solid var(--line);border-radius:10px;padding:8px}.statuspill{display:inline-block;border-radius:999px;padding:6px 10px;font-size:12px;border:1px solid var(--line);background:#10192a;color:var(--muted)}.foot{font-size:12px;color:var(--muted);margin-top:10px}
+.arrow-box{margin-top:12px;border-radius:16px;padding:14px;border:1px solid var(--line);background:#0d1524}.arrow-main{font-size:32px;font-weight:900}.tp-sl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:1180px){.grid{grid-template-columns:1fr}.chart-wrap{height:720px}}@media (max-width:820px){.small-cards,.form-grid,.check-grid,.zone-grid,.tp-sl-grid{grid-template-columns:1fr 1fr}.chart-wrap{height:540px}}@media (max-width:640px){.wrap{padding:12px}.title{font-size:22px}.big-signal-main{font-size:34px}.small-cards,.form-grid,.check-grid,.zone-grid,.tp-sl-grid{grid-template-columns:1fr}.chart-wrap{height:430px}input,select,textarea,button{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+  <div class="hero-head">
+    <div class="brand"><div class="icon">📈</div><div><h1 class="title">Taro FX Pro Ver.15</h1><div class="sub">ENTRY矢印、TP/SL、フィボ自動候補つきのデイトレ専用版。</div></div></div>
+    <div class="badges"><div class="badge">USD/JPY</div><div class="badge">ENTRY矢印</div><div class="badge">TP / SL</div><div class="badge">フィボ候補</div><div class="badge">自動保存</div></div>
+  </div>
+  <div class="big-signal big-wait" id="bigSignalBox"><div class="big-signal-title">今のメイン判定</div><div class="big-signal-main" id="bigSignalMain">様子見</div><div class="big-signal-sub" id="bigSignalSub">候補を反映してから微調整すると使いやすい。</div></div>
+  <div class="session-grid">
+    <div class="session-card"><div class="session-name">東京</div><div class="session-time" id="tokyoSession">-</div></div>
+    <div class="session-card"><div class="session-name">ロンドン</div><div class="session-time" id="londonSession">-</div></div>
+    <div class="session-card"><div class="session-name">NY</div><div class="session-time" id="nySession">-</div></div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <div class="chart-top">
+      <div class="tabs">
+        <button class="active" data-interval="5">5分</button>
+        <button data-interval="60">1時間</button>
+        <button data-interval="240">4時間</button>
+        <button data-interval="1">1分</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="small-btn" id="refreshChart">チャート更新</button>
+        <button class="small-btn" id="refreshPrice">価格取得</button>
+        <button class="small-btn" id="applySuggestions">候補を反映</button>
+        <button class="small-btn" onclick="window.open(currentChartUrl(),'_blank')">全画面</button>
+      </div>
+    </div>
+    <div class="chart-wrap"><div id="tv_chart" style="height:100%"></div></div>
+    <div class="foot">5分足中心。1時間足で流れ、5分足で位置、1分足で最終確認。</div>
+  </div>
+
+  <div class="panel">
+    <div style="font-size:20px;font-weight:900;margin-bottom:12px;">ENTRY補助つき分析</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <span class="statuspill" id="rateStatus">価格未取得</span>
+      <span class="statuspill" id="rateDate">-</span>
+      <span class="statuspill" id="autoStatus">保存条件で分析</span>
+    </div>
+    <div class="form-grid" style="margin-bottom:12px;">
+      <div><label>APIキー（Twelve Data）</label><input id="apiKey" type="password" placeholder="ここにAPIキー" /></div>
+      <div><label>価格更新間隔（秒）</label><input id="pollSeconds" type="number" min="10" step="10" value="30" /></div>
+    </div>
+
+    <div class="small-cards" style="margin-top:0;">
+      <div class="card"><div class="k">現在価格</div><div class="v" id="livePriceView">-</div></div>
+      <div class="card"><div class="k">総合サイン</div><div class="v" id="mainSignal">様子見</div></div>
+      <div class="card"><div class="k">SELL判定</div><div class="v" id="sellSignal">-</div></div>
+      <div class="card"><div class="k">BUY判定</div><div class="v" id="buySignal">-</div></div>
+    </div>
+    <div class="small-cards two">
+      <div class="card"><div class="k">SELLゾーンまで</div><div class="v" id="sellDistanceView">-</div></div>
+      <div class="card"><div class="k">BUYゾーンまで</div><div class="v" id="buyDistanceView">-</div></div>
+    </div>
+
+    <div class="arrow-box">
+      <div class="k">ENTRY矢印</div>
+      <div class="arrow-main" id="entryArrow">WAIT</div>
+      <div class="foot" id="entryText">条件待ち</div>
+    </div>
+
+    <div class="tp-sl-grid">
+      <div class="card"><div class="k">TP目安</div><div class="v" id="tpView">-</div><div class="foot" id="tpText">利確候補</div></div>
+      <div class="card"><div class="k">SL目安</div><div class="v" id="slView">-</div><div class="foot" id="slText">損切り候補</div></div>
+    </div>
+
+    <div class="card" style="margin-top:10px;">
+      <div class="k">フィボ候補</div>
+      <div class="foot" id="fibSummary">高値・安値から38.2 / 50 / 61.8 を自動計算。</div>
+      <div class="foot" id="fibValues">候補待ち</div>
+    </div>
+
+    <div class="card" style="margin-top:10px;">
+      <div class="k">自動補助候補</div>
+      <div class="foot" id="suggestionSummary">価格から近い候補を作る。必要なら微調整してね。</div>
+      <div class="foot" id="suggestionValues">候補待ち</div>
+    </div>
+
+    <div class="card" style="margin-top:10px;">
+      <div class="k">分析コメント</div>
+      <div class="v" id="analysisHint" style="font-size:16px;">入力待ち</div>
+      <div class="foot" id="analysisDetail">不足条件、ゾーンまでの距離、ENTRYまで何が足りないかを表示する。</div>
+      <div class="foot" id="debugState">入力待ち</div>
+    </div>
+
+    <div class="form-grid" style="margin-top:12px;">
+      <div><label>相場の流れ</label><select id="trend"><option value="down">下降トレンド（戻り売り）</option><option value="up" selected>上昇トレンド（押し目買い）</option><option value="range">レンジ / 様子見</option></select></div>
+      <div><label>現在価格（APIで自動上書き）</label><input id="currentPrice" type="number" step="0.001" /></div>
+      <div><label>直近スイング高値</label><input id="swingHigh" type="number" step="0.001" /></div>
+      <div><label>直近スイング安値</label><input id="swingLow" type="number" step="0.001" /></div>
+      <div><label>20MA</label><input id="ma20" type="number" step="0.001" /></div>
+      <div><label>50MA</label><input id="ma50" type="number" step="0.001" /></div>
+      <div><label>RSI</label><input id="rsi" type="number" step="0.1" /></div>
+      <div><label>ロット</label><input id="lot" type="number" step="0.01" value="1" /></div>
+    </div>
+
+    <div class="check-grid">
+      <label class="check-item"><input type="checkbox" id="check1mSell"> 1分足 反転確認（売り）</label>
+      <label class="check-item"><input type="checkbox" id="check5mSell"> 5分足 反転確認（売り）</label>
+      <label class="check-item"><input type="checkbox" id="check1mBuy"> 1分足 反転確認（買い）</label>
+      <label class="check-item"><input type="checkbox" id="check5mBuy"> 5分足 反転確認（買い）</label>
+    </div>
+
+    <div class="zone-grid">
+      <div class="zone sell">
+        <div class="k">戻り売りゾーン（赤 / 幅15pips）</div><div class="v" id="sellZoneCenter">-</div>
+        <div class="zonebar"><div class="sellfill"></div></div>
+        <div class="zoneprices"><div><div class="k">上限</div><strong id="sellZoneHigh">-</strong></div><div><div class="k">中心</div><strong id="sellZoneMid">-</strong></div><div><div class="k">下限</div><strong id="sellZoneLow">-</strong></div></div>
+        <div class="foot" id="sellReason">高値・安値・MAを入れると計算。</div>
+      </div>
+      <div class="zone buy">
+        <div class="k">押し目買いゾーン（青 / 幅15pips）</div><div class="v" id="buyZoneCenter">-</div>
+        <div class="zonebar"><div class="buyfill"></div></div>
+        <div class="zoneprices"><div><div class="k">上限</div><strong id="buyZoneHigh">-</strong></div><div><div class="k">中心</div><strong id="buyZoneMid">-</strong></div><div><div class="k">下限</div><strong id="buyZoneLow">-</strong></div></div>
+        <div class="foot" id="buyReason">高値・安値・MAを入れると計算。</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;"><label>戦略メモ</label><textarea id="memo"></textarea></div>
+    <div class="form-grid" style="margin-top:10px;">
+      <button class="primary" id="saveScenario">条件を保存</button>
+      <button id="recalcZones">再分析</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const $=(id)=>document.getElementById(id);
+let currentInterval='5',pollTimer=null,suggestions={};
+function n(v){return v===''?null:Number(v)} function f3(v){return Number(v).toFixed(3)} function pips(diff){return (Math.abs(diff)*100).toFixed(1)}
+function currentChartUrl(){const symbol=encodeURIComponent('OANDA:USDJPY');return `https://s.tradingview.com/widgetembed/?frameElementId=tv_chart&symbol=${symbol}&interval=${currentInterval}&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&studies=%5B%22BB%40tv-basicstudies%22%2C%22RSI%40tv-basicstudies%22%2C%22MASimple%40tv-basicstudies%22%2C%22MASimple%40tv-basicstudies%22%5D&theme=dark&style=1&timezone=Asia%2FTokyo&withdateranges=1&hideideas=1&locale=ja`}
+function renderChart(){$('tv_chart').innerHTML=`<iframe class="tv-iframe" src="${currentChartUrl()}" allowfullscreen></iframe>`;document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.interval===currentInterval))}
+function updateSessions(){const now=new Date(),tokyo=now.getHours()+now.getMinutes()/60,london=(tokyo-8+24)%24,ny=(tokyo-14+24)%24;const lab=(name,h)=>name==='tokyo'?(h>=9&&h<15?'オープン中':'時間外'):name==='london'?(h>=8&&h<17?'オープン中':'時間外'):(h>=9.5&&h<16?'オープン中':'時間外');[['tokyoSession','tokyo',tokyo],['londonSession','london',london],['nySession','ny',ny]].forEach(([id,nm,h])=>{const t=lab(nm,h);$(id).textContent=t;$(id).className='session-time '+(t==='オープン中'?'s-open':'s-wait')})}
+function updateBig(signal,detail){const box=$('bigSignalBox');$('bigSignalMain').textContent=signal||'様子見';$('bigSignalSub').textContent=detail||'';box.className='big-signal big-wait';if(/SELL|戻り売り/.test(signal))box.className='big-signal big-sell';else if(/BUY|押し目買い/.test(signal))box.className='big-signal big-buy'}
+function schedulePolling(){if(pollTimer)clearInterval(pollTimer);const sec=Math.max(10,Number($('pollSeconds').value||30));pollTimer=setInterval(fetchPrice,sec*1000)}
+async function fetchPrice(){const apiKey=($('apiKey').value||'').trim();if(!apiKey){$('rateStatus').textContent='APIキー待ち';$('rateDate').textContent='価格取得停止';updateBig('様子見','Twelve Data のAPIキーを入れると現在価格が動く。');return}$('rateStatus').textContent='価格取得中...';try{const resp=await fetch(`https://api.twelvedata.com/price?symbol=USD/JPY&apikey=${encodeURIComponent(apiKey)}`);const data=await resp.json();if(data.code||!data.price)throw new Error();const price=Number(data.price);$('currentPrice').value=price.toFixed(3);$('livePriceView').textContent=price.toFixed(3);$('rateStatus').textContent='リアルタイム取得OK';$('rateDate').textContent=`更新 ${new Date().toLocaleTimeString('ja-JP')}`;$('autoStatus').textContent='価格反映 → 自動分析';buildSuggestions();autoSave();calcAnalysis()}catch(e){$('rateStatus').textContent='取得失敗';$('rateDate').textContent='APIキー/上限確認';updateBig('様子見','価格取得に失敗。APIキーか上限を確認。')}}
+function buildSuggestions(){const price=n($('currentPrice').value),trend=$('trend').value;if(price==null){$('suggestionValues').textContent='現在価格取得後に候補を作る。';return}const swingWidth=0.350,maFast=trend==='down'?price+0.030:price-0.030,maSlow=trend==='down'?price+0.080:price-0.080,high=trend==='down'?price+swingWidth:price+0.220,low=trend==='down'?price-0.220:price-swingWidth,rsi=trend==='down'?58:42;suggestions={high,low,ma20:maFast,ma50:maSlow,rsi};$('suggestionSummary').textContent='今の価格からデイトレ向け候補を自動作成。必要なら微調整して使う。';$('suggestionValues').textContent=`高値 ${f3(high)} / 安値 ${f3(low)} / 20MA ${f3(maFast)} / 50MA ${f3(maSlow)} / RSI ${rsi.toFixed(1)}`}
+function applySuggestions(){if(!Number.isFinite(suggestions.high))buildSuggestions();if(Number.isFinite(suggestions.high))$('swingHigh').value=f3(suggestions.high);if(Number.isFinite(suggestions.low))$('swingLow').value=f3(suggestions.low);if(Number.isFinite(suggestions.ma20))$('ma20').value=f3(suggestions.ma20);if(Number.isFinite(suggestions.ma50))$('ma50').value=f3(suggestions.ma50);if(Number.isFinite(suggestions.rsi))$('rsi').value=suggestions.rsi.toFixed(1);autoSave();calcAnalysis()}
+function calcFib(high,low){if(high==null||low==null||high<=low)return null;const range=high-low;return{f382:high-range*0.382,f50:high-range*0.5,f618:high-range*0.618}}
+function calcAnalysis(){const trend=$('trend').value,high=n($('swingHigh').value),low=n($('swingLow').value),ma20=n($('ma20').value),ma50=n($('ma50').value),price=n($('currentPrice').value),rsi=n($('rsi').value),sellChecks=[$('check1mSell').checked,$('check5mSell').checked].filter(Boolean).length,buyChecks=[$('check1mBuy').checked,$('check5mBuy').checked].filter(Boolean).length;const missing=[];if(high==null)missing.push('高値');if(low==null)missing.push('安値');if(ma20==null)missing.push('20MA');if(ma50==null)missing.push('50MA');if(rsi==null)missing.push('RSI');if(price==null)missing.push('現在価格');const fib=calcFib(high,low);let sellCenter=null,buyCenter=null;if(fib){const sellPts=[fib.f382,fib.f50,fib.f618,ma20,ma50].filter(v=>Number.isFinite(v)),buyPts=[low+(high-low)*0.382,low+(high-low)*0.5,low+(high-low)*0.618,ma20,ma50].filter(v=>Number.isFinite(v));if(sellPts.length)sellCenter=sellPts.reduce((a,b)=>a+b,0)/sellPts.length;if(buyPts.length)buyCenter=buyPts.reduce((a,b)=>a+b,0)/buyPts.length}const mkZone=(c)=>c==null?null:{mid:c,high:c+0.075,low:c-0.075},sellZone=mkZone(sellCenter),buyZone=mkZone(buyCenter);
+$('fibValues').textContent=fib?`38.2 ${f3(fib.f382)} / 50 ${f3(fib.f50)} / 61.8 ${f3(fib.f618)}`:'高値・安値入力で表示';
+const rz=(p,z,l)=>{if(!z){$(`${p}ZoneCenter`).textContent='-';$(`${p}ZoneHigh`).textContent='-';$(`${p}ZoneMid`).textContent='-';$(`${p}ZoneLow`).textContent='-';return}$(`${p}ZoneCenter`).textContent=`${l} ${f3(z.mid)}`;$(`${p}ZoneHigh`).textContent=f3(z.high);$(`${p}ZoneMid`).textContent=f3(z.mid);$(`${p}ZoneLow`).textContent=f3(z.low)};rz('sell',sellZone,'SELL ZONE');rz('buy',buyZone,'BUY ZONE');
+$('sellReason').textContent=sellZone&&fib?`38.2=${f3(fib.f382)} 50=${f3(fib.f50)} 61.8=${f3(fib.f618)} と MA平均`:'高値・安値・MAを入れると計算。';$('buyReason').textContent=buyZone?'押し目候補。MAが近いほど強い。':'高値・安値・MAを入れると計算。';
+let main='様子見',mainClass='',sell='待機',buy='待機',hint='入力待ち',detail='候補を反映してから微調整すると使いやすい。',entry='WAIT',tp='-',sl='-',tpText='利確候補',slText='損切り候補';const inSell=!!(sellZone&&price!=null&&price>=sellZone.low&&price<=sellZone.high),inBuy=!!(buyZone&&price!=null&&price>=buyZone.low&&price<=buyZone.high);
+if(sellZone&&price!=null){const diff=price<sellZone.low?sellZone.low-price:price>sellZone.high?price-sellZone.high:0;$('sellDistanceView').textContent=diff===0?'到達中':pips(diff)+' pips';$('sellDistanceView').className='v '+(diff===0?'red':'yellow')} else {$('sellDistanceView').textContent='-';$('sellDistanceView').className='v'}
+if(buyZone&&price!=null){const diff=price<buyZone.low?buyZone.low-price:price>buyZone.high?price-buyZone.high:0;$('buyDistanceView').textContent=diff===0?'到達中':pips(diff)+' pips';$('buyDistanceView').className='v '+(diff===0?'blue':'yellow')} else {$('buyDistanceView').textContent='-';$('buyDistanceView').className='v'}
+if(missing.length){main='条件不足';mainClass='yellow';hint='不足あり';detail='未入力: '+missing.join(' / ')}
+else if(trend==='range'){main='様子見';mainClass='yellow';hint='レンジ様子見';detail='トレンド選択がレンジ。'}
+else if(trend==='down'){if(inSell){sell='SELL準備';main='SELL準備';mainClass='red';hint='売りゾーン内';detail='赤ゾーン内。1分足/5分足売り確認待ち。';entry='↘ SELL準備';tp=sellZone&&fib?f3(low):'-';sl=sellZone?f3(sellZone.high+0.030):'-';tpText='安値側まで';slText='ゾーン上抜けで撤退';if(sellChecks===2){sell='SELL ENTRY候補';main='SELL ENTRY候補';detail='1分足+5分足売り確認あり。';entry='↓↓ SELL ENTRY'}if(sellChecks===2&&rsi!=null&&rsi>=60){sell='強い戻り売り';main='強い戻り売り';detail='赤ゾーン内 + 1分足/5分足確認 + RSI60以上。';entry='↓↓ SELL ENTRY'}}else{sell='戻り待ち';main='SELL準備';mainClass='yellow';hint='SELL準備';detail=sellZone&&price!=null?('下降トレンド。'+(price<sellZone.low?`赤ゾーンまで ${pips(sellZone.low-price)}pips`:`赤ゾーン超え ${pips(price-sellZone.high)}pips`)):'下降トレンド。候補を反映して赤ゾーン算出。';entry='WAIT'}}
+else if(trend==='up'){if(inBuy){buy='BUY準備';main='BUY準備';mainClass='blue';hint='買いゾーン内';detail='青ゾーン内。1分足/5分足買い確認待ち。';entry='↗ BUY準備';tp=buyZone&&fib?f3(high):'-';sl=buyZone?f3(buyZone.low-0.030):'-';tpText='高値側まで';slText='ゾーン下抜けで撤退';if(buyChecks===2){buy='BUY ENTRY候補';main='BUY ENTRY候補';detail='1分足+5分足買い確認あり。';entry='↑↑ BUY ENTRY'}if(buyChecks===2&&rsi!=null&&rsi<=40){buy='強い押し目買い';main='強い押し目買い';detail='青ゾーン内 + 1分足/5分足確認 + RSI40以下。';entry='↑↑ BUY ENTRY'}}else{buy='押し待ち';main='BUY準備';mainClass='blue';hint='BUY準備';detail=buyZone&&price!=null?('上昇トレンド。'+(price>buyZone.high?`青ゾーンまで ${pips(price-buyZone.high)}pips`:`青ゾーン下抜け ${pips(buyZone.low-price)}pips`)):'上昇トレンド。候補を反映して青ゾーン算出。';entry='WAIT'}}
+$('mainSignal').textContent=main;$('mainSignal').className='v '+mainClass;$('sellSignal').textContent=sell;$('sellSignal').className='v '+(sell.includes('SELL')||sell.includes('戻り売り')?'red':sell==='待機'?'':'yellow');$('buySignal').textContent=buy;$('buySignal').className='v '+(buy.includes('BUY')||buy.includes('押し目買い')?'blue':buy==='待機'?'':'yellow');$('analysisHint').textContent=hint;$('analysisHint').className='v '+mainClass;$('analysisDetail').textContent=detail;$('debugState').textContent=`状態: trend=${trend} price=${price??'-'} high=${high??'-'} low=${low??'-'} ma20=${ma20??'-'} ma50=${ma50??'-'} rsi=${rsi??'-'} inSell=${inSell} inBuy=${inBuy}`;$('entryArrow').textContent=entry;$('entryArrow').className='arrow-main '+(entry.includes('SELL')?'red':entry.includes('BUY')?'blue':'yellow');$('entryText').textContent=detail;$('tpView').textContent=tp;$('slView').textContent=sl;$('tpText').textContent=tpText;$('slText').textContent=slText;updateBig(main,detail)}
+function collectScenario(){return{apiKey:$('apiKey').value,pollSeconds:$('pollSeconds').value,trend:$('trend').value,currentPrice:$('currentPrice').value,swingHigh:$('swingHigh').value,swingLow:$('swingLow').value,ma20:$('ma20').value,ma50:$('ma50').value,rsi:$('rsi').value,lot:$('lot').value,memo:$('memo').value,check1mSell:$('check1mSell').checked,check5mSell:$('check5mSell').checked,check1mBuy:$('check1mBuy').checked,check5mBuy:$('check5mBuy').checked}}
+function autoSave(){localStorage.setItem('taro-fx-pro-v15-scenario',JSON.stringify(collectScenario()))}
+function loadScenario(){const raw=localStorage.getItem('taro-fx-pro-v15-scenario');if(!raw)return;const d=JSON.parse(raw);['apiKey','pollSeconds','trend','currentPrice','swingHigh','swingLow','ma20','ma50','rsi','lot','memo'].forEach(k=>{if($(k)&&d[k]!=null)$(k).value=d[k]});['check1mSell','check5mSell','check1mBuy','check5mBuy'].forEach(k=>{if($(k)&&d[k]!=null)$(k).checked=!!d[k]})}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{currentInterval=b.dataset.interval;renderChart()}));
+['apiKey','pollSeconds','trend','currentPrice','swingHigh','swingLow','ma20','ma50','rsi','lot','memo'].forEach(id=>$(id).addEventListener('input',()=>{autoSave();calcAnalysis();if(id==='apiKey'||id==='pollSeconds')schedulePolling();if(id==='trend'||id==='currentPrice')buildSuggestions()}));
+['check1mSell','check5mSell','check1mBuy','check5mBuy'].forEach(id=>$(id).addEventListener('change',()=>{autoSave();calcAnalysis()}));
+$('refreshChart').addEventListener('click',renderChart);$('refreshPrice').addEventListener('click',fetchPrice);$('applySuggestions').addEventListener('click',applySuggestions);$('recalcZones').addEventListener('click',calcAnalysis);$('saveScenario').addEventListener('click',()=>{autoSave();calcAnalysis();alert('条件を保存したよ')});
+updateSessions();setInterval(updateSessions,60000);loadScenario();schedulePolling();renderChart();buildSuggestions();calcAnalysis();fetchPrice();
+</script>
+</body>
+</html>
